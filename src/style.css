@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Anta&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    font-family: 'Monserrat', 'Courier New', Courier, monospace;
+    --main-white: #FEFDFF;
+    --secondary-gray: #C1BFB5;
+    --main-orange: #EB4511;
+    --secondary-marroon: #B02E0C;
+    --thrid-blue: #8EB1C7;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+
+    > header {
+        height: 80px;
+        background-color: var(--main-white);
+        border-bottom: solid 2px var(--secondary-gray);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3rem;
+        color: var(--thrid-blue);
+    }
+
+    > footer {
+        position: absolute;
+        bottom: 0;
+        height: 50px;
+        width: 100vw;
+        background-color: var(--thrid-blue);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: solid 2px var(--secondary-gray);
+        color: var(--main-white);
+    }
+}

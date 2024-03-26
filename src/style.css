@@ -15,13 +15,113 @@ body {
 
     > header {
         height: 80px;
-        background-color: var(--main-white);
+        background-color: var(--thrid-blue);
         border-bottom: solid 2px var(--secondary-gray);
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 3rem;
-        color: var(--thrid-blue);
+        color: var(--main-white);
+    }
+
+    > .main-container {
+        display: flex;
+        height: 100%;
+
+        > .projects {
+            width: 20vw;
+            padding: 40px;
+            display: grid;
+            grid-template-rows: repeat(auto-fill, 50px);
+            border-right: 2px solid var(--secondary-gray);
+            overflow: scroll;
+
+            > .new-project {
+                border-bottom: 1px solid var(--secondary-gray);
+
+                > .add-button {
+                    background-color: transparent;
+                    color: black;
+                    font-size: 1.2rem;
+                    border: 1px solid var(--secondary-gray);
+                    font-family: 'Monserrat', 'Courier New', Courier, monospace;
+                    border-radius: 5px;
+                }
+
+                > .add-button:hover {
+                    color: var(--thrid-blue);
+                    cursor: pointer;
+                }
+
+                > .project-item {
+                    font-size: 1.1rem;
+                }
+    
+                > .project-item:hover {
+                    color: var(--thrid-blue);
+                    cursor: pointer;
+                }
+            }
+
+            > .input-project {
+                padding: 10px 0 10px 0;
+                display: flex;
+                justify-content: center;
+            }
+
+            > .project-item {
+                font-size: 1.1rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px 0 10px 0;
+            }
+
+            > .project-item:hover {
+                color: var(--thrid-blue);
+                cursor: pointer;
+            }
+        }
+
+        > .list {
+            flex: 1;
+            padding: 40px;
+            display: grid;
+            grid-template-rows: repeat(auto-fill, 50px);
+            overflow: scroll;
+
+            > .new-task {
+                border-bottom: 1px solid var(--secondary-gray);
+
+                > .add-button {
+                    background-color: transparent;
+                    color: black;
+                    font-size: 1.2rem;
+                    border: 1px solid var(--secondary-gray);
+                    font-family: 'Monserrat', 'Courier New', Courier, monospace;
+                    border-radius: 5px;
+                }
+
+                > .add-button:hover {
+                    color: var(--thrid-blue);
+                    cursor: pointer;
+                }
+            }
+
+            > .task-form {
+                display: grid;
+                grid-template-columns: 2fr 4fr 1fr 1fr 1fr 0.5fr 0.5fr;
+                gap: 10px;
+                padding: 10px 0 10px 0;
+            }
+
+            > .task {
+                display: grid;
+                grid-template-columns: 2fr 4fr 1fr 1fr 1fr 1fr;
+                gap: 10px;
+                padding: 10px 0 10px 0px;
+            }
+        }
     }
 
     > footer {

@@ -2,10 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+  mode: 'development',
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
+  },
+  devServer: {
+    static: './dist',
   },
  module: {
    rules: [
@@ -23,4 +27,7 @@ module.exports = {
     inject: "body",
     template: "./src/index.html"
  })],
+ optimization: {
+   runtimeChunk: 'single',
+ },
 };

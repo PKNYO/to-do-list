@@ -133,6 +133,12 @@ body {
                     height: 20px;
                     justify-self: center;
                 }
+
+                > img:hover {
+                    border: 1px solid var(--secondary-gray);
+                    border-radius: 5px;
+                    padding: 1px;
+                }
             }
         }
     }

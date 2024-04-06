@@ -1,4 +1,6 @@
-import pencilImage from '../src/images/pencil-outline.svg'
+import pencilImage from '../src/images/pencil-outline.svg';
+import { projects as projectLibrary } from './projects';
+import { tasks as taskLibrary } from './tasks';
 
 class DOMController {
     mainContent = document.querySelector('.main-container');
@@ -10,6 +12,8 @@ class DOMController {
         const newTaskDiv = document.createElement('div');
         const projectButton = document.createElement('button');
         const taskButton = document.createElement('button');
+        const projectListDiv = document.createElement('div');
+        const taskListDiv = document.createElement('div');
     
         projectDiv.className = 'projects';
         listDiv.className = 'list';
@@ -17,6 +21,8 @@ class DOMController {
         newTaskDiv.className = 'new-task';
         projectButton.className = 'add-button';
         taskButton.className = 'add-button';
+        projectListDiv.className = 'project-list';
+        taskListDiv.className = 'task-list';
     
         this.mainContent.appendChild(projectDiv);
         this.mainContent.appendChild(listDiv);
@@ -24,6 +30,8 @@ class DOMController {
         listDiv.appendChild(newTaskDiv);
         newProjectDiv.appendChild(projectButton);
         newTaskDiv.appendChild(taskButton);
+        projectDiv.appendChild(projectListDiv);
+        listDiv.appendChild(taskListDiv);
 
         projectButton.textContent = 'Add Project';
         taskButton.textContent = 'Add Task';
@@ -33,12 +41,12 @@ class DOMController {
     }
 
     displayProjectForm() {
-        const projectDiv = document.querySelector('.projects')
+        const projectListDiv = document.querySelector('.project-list')
         const formDiv = document.createElement('div');
         const formInput = document.createElement('input');
         const formButton = document.createElement('button');
 
-        projectDiv.querySelector('.new-project').after(formDiv);
+        projectListDiv.prepend(formDiv);
         formDiv.appendChild(formInput);
         formDiv.appendChild(formButton);
 
@@ -50,13 +58,14 @@ class DOMController {
 
         formButton.textContent = 'Done';
         formButton.addEventListener('click', () => {
-            this.addProjectItem(formInput.value)
-            formDiv.remove()
+            formDiv.remove();
+            this.addProjectItem(formInput.value);
+            projectLibrary.push(formInput.value);
         });
     }
 
     displayTaskForm() {
-        const listDiv = document.querySelector('.list')
+        const taskListDiv = document.querySelector('.task-list')
         const formDiv = document.createElement('div');
         const titleInput = document.createElement('input');
         const descriptionInput = document.createElement('input');
@@ -69,7 +78,7 @@ class DOMController {
         const doneButton = document.createElement('button');
         const cancelButton = document.createElement('button');
 
-        listDiv.querySelector('.new-task').after(formDiv);
+        taskListDiv.prepend(formDiv);
         formDiv.appendChild(titleInput);
         formDiv.appendChild(descriptionInput);
         formDiv.appendChild(dueDateInput);
@@ -112,30 +121,39 @@ class DOMController {
         normalPriority.value = 'normal';
         normalPriority.textContent = 'Normal';
 
-        optionalPriority.value = 'important';
+        optionalPriority.value = 'optional';
         optionalPriority.textContent = 'Optional';
 
         formDiv.className = 'task-form';
 
         cancelButton.addEventListener('click', () => {formDiv.remove()})
         doneButton.addEventListener('click', () => {
-            this.addTaskItem(titleInput.value, descriptionInput.value, dueDateInput.value, projectSelect.value, prioritySelect.value);
             formDiv.remove();
+            this.addTaskItem(titleInput.value, descriptionInput.value, dueDateInput.value, projectSelect.value, prioritySelect.value);
+            taskLibrary.push({
+                'title' : titleInput.value,
+                'description' : descriptionInput.value,
+                'dueDateInput' : dueDateInput.value,
+                'projectSelected' : projectSelect.value,
+                'prioritySelected' : prioritySelect.value,
+                'check' : false
+            });
+            console.log(taskLibrary)
         })
     }
 
     addProjectItem(project) {
-        const projectDiv = document.querySelector('.projects');
+        const projectListDiv = document.querySelector('.project-list');
         const projectItemDiv = document.createElement('div');
 
         projectItemDiv.className = 'project-item';
         projectItemDiv.textContent = project;
 
-        projectDiv.querySelector('.new-project').after(projectItemDiv);
+        projectListDiv.prepend(projectItemDiv);
     }
 
     addTaskItem(title, description, dueDate, project, priority) {
-        const listDiv = document.querySelector('.list');
+        const taskListDiv = document.querySelector('.task-list');
         const taskItemDiv = document.createElement('div');
         const titleP = document.createElement('p');
         const descriptionP = document.createElement('p');
@@ -177,7 +195,7 @@ class DOMController {
         taskItemDiv.appendChild(checkbox);
         taskItemDiv.appendChild(editSvg);
 
-        listDiv.querySelector('.new-task').after(taskItemDiv);
+        taskListDiv.prepend(taskItemDiv);
     }
 }
 

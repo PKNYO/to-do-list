@@ -13,6 +13,10 @@ body {
     margin: 0;
     height: 100vh;
 
+    > button, select, img {
+        cursor: pointer;
+    }
+
     > header {
         height: 80px;
         background-color: var(--thrid-blue);
@@ -31,13 +35,42 @@ body {
         > .projects {
             width: 20vw;
             padding: 40px;
-            display: grid;
-            grid-template-rows: repeat(auto-fill, 50px);
             border-right: 2px solid var(--secondary-gray);
             overflow: scroll;
 
+            > .project-list {
+                display: grid;
+                grid-template-rows: repeat(auto-fill, 50px);
+                padding-top: 10px;
+
+                > .input-project {
+                    padding: 10px 0 10px 0;
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+
+                    > button {
+                        cursor: pointer;
+                    }
+                }
+
+                > .project-item {
+                    font-size: 1.1rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 10px 0 10px 0;
+                }
+    
+                > .project-item:hover {
+                    color: var(--thrid-blue);
+                    cursor: pointer;
+                }
+            }
+
             > .new-project {
                 border-bottom: 1px solid var(--secondary-gray);
+                padding-bottom: 20px;
 
                 > .add-button {
                     background-color: transparent;
@@ -62,37 +95,16 @@ body {
                     cursor: pointer;
                 }
             }
-
-            > .input-project {
-                padding: 10px 0 10px 0;
-                display: flex;
-                justify-content: center;
-                gap: 10px;
-            }
-
-            > .project-item {
-                font-size: 1.1rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 10px 0 10px 0;
-            }
-
-            > .project-item:hover {
-                color: var(--thrid-blue);
-                cursor: pointer;
-            }
         }
 
         > .list {
-            flex: 1;
             padding: 40px;
-            display: grid;
-            grid-template-rows: repeat(auto-fill, 50px);
+            width: 80vw;
             overflow: scroll;
 
             > .new-task {
                 border-bottom: 1px solid var(--secondary-gray);
+                padding-bottom: 20px;
 
                 > .add-button {
                     background-color: transparent;
@@ -109,35 +121,46 @@ body {
                 }
             }
 
-            > .task-form {
+            > .task-list {
                 display: grid;
-                grid-template-columns: 2fr 4fr 1fr 1fr 1fr 0.5fr 0.5fr;
-                gap: 10px;
-                padding: 10px 0 10px 0;
-            }
-
-            > .task {
-                display: grid;
-                grid-template-columns: 2fr 4fr 1fr 1fr 1fr 1fr 1fr;
-                gap: 10px;
-                padding: 10px 0 10px 0px;
-                justify-content: center;
+                grid-template-rows: repeat(auto-fill, 50px);
                 align-items: center;
+                padding-top: 10px;
 
-                > .checkbox {
-                    height: 20px;
-                    justify-self: center;
+                > .task-form {
+                    display: grid;
+                    grid-template-columns: 2fr 4fr 1fr 1fr 1fr 0.5fr 0.5fr;
+                    gap: 10px;
+                    padding: 10px 0 10px 0;
+
+                    > button {
+                        cursor: pointer;
+                    }
                 }
 
-                > img {
-                    height: 20px;
-                    justify-self: center;
-                }
-
-                > img:hover {
-                    border: 1px solid var(--secondary-gray);
-                    border-radius: 5px;
-                    padding: 1px;
+                > .task {
+                    display: grid;
+                    grid-template-columns: 2fr 4fr 1fr 1fr 1fr 1fr 1fr;
+                    gap: 10px;
+                    padding: 10px 0 10px 0px;
+                    justify-content: center;
+                    align-items: center;
+    
+                    > .checkbox {
+                        height: 20px;
+                        justify-self: center;
+                    }
+    
+                    > img {
+                        height: 20px;
+                        justify-self: center;
+                    }
+    
+                    > img:hover {
+                        border: 1px solid var(--secondary-gray);
+                        border-radius: 5px;
+                        padding: 1px;
+                    }
                 }
             }
         }

@@ -1,4 +1,5 @@
 import pencilImage from '../src/images/pencil-outline.svg';
+import trashImage from '../src/images/trash-outline.svg';
 import { projects as projectLibrary } from './projects';
 import { tasks as taskLibrary } from './tasks';
 
@@ -148,15 +149,25 @@ class DOMController {
     addProjectItem(project) {
         const projectListDiv = document.querySelector('.project-list');
         const projectItemDiv = document.createElement('div');
+        const projectTitle = document.createElement('p');
+        const deleteSvg = document.createElement('img');
 
         projectItemDiv.className = 'project-item';
-        projectItemDiv.textContent = project;
+        projectTitle.textContent = project;
+        deleteSvg.alt = 'delete';
+        deleteSvg.src = trashImage;
 
         projectItemDiv.addEventListener('click', (e) => {
             this.organizeTasks(e.target.textContent);
         })
 
+        deleteSvg.addEventListener('click', () => {
+            this.deleteProject(projectTitle);
+        })
+
         projectListDiv.prepend(projectItemDiv);
+        projectItemDiv.appendChild(projectTitle);
+        projectItemDiv.appendChild(deleteSvg);
     }
 
     addTaskItem(title, description, dueDate, project, priority, check = null) {
@@ -169,6 +180,7 @@ class DOMController {
         const priorityP = document.createElement('p');
         const checkbox = document.createElement('input');
         const editSvg = document.createElement('img');
+        const deleteSvg = document.createElement('img');
 
         taskItemDiv.className = 'task';
 
@@ -194,8 +206,15 @@ class DOMController {
         editSvg.src = pencilImage;
         editSvg.alt = 'pencil';
 
+        deleteSvg.src = trashImage;
+        deleteSvg.alt = 'trash';
+
         editSvg.addEventListener('click', () => {
             this.editTask(taskItemDiv);
+        })
+
+        deleteSvg.addEventListener('click', () => {
+            this.deleteTask(taskItemDiv);
         })
 
         taskItemDiv.appendChild(titleP);
@@ -205,6 +224,7 @@ class DOMController {
         taskItemDiv.appendChild(priorityP);
         taskItemDiv.appendChild(checkbox);
         taskItemDiv.appendChild(editSvg);
+        taskItemDiv.appendChild(deleteSvg);
 
         taskListDiv.prepend(taskItemDiv);
 
@@ -258,6 +278,32 @@ class DOMController {
 
     editTask(taskItem) {
         alert('to do');
+    }
+
+    deleteTask(taskItem) {
+        const title = taskItem.querySelector('.title');
+        console.log(taskLibrary)
+        taskItem.remove();
+        for (let task of taskLibrary) {
+            if (title.textContent == task.title) {
+                const index = taskLibrary.indexOf(task);
+
+                taskLibrary.splice(index, 1);
+            }
+        }
+    }
+
+    deleteProject(projectItem) {
+        for (let project of projectLibrary) {
+            if (projectItem.textContent == project) {
+                const index = projectLibrary.indexOf(project);
+                console.log(index)
+
+                projectLibrary.splice(index, 1);
+            }
+        }
+
+        projectItem.parentNode.remove();
     }
 
     organizeTasks(projectText) {

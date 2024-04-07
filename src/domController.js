@@ -38,6 +38,8 @@ class DOMController {
 
         projectButton.onclick = this.displayProjectForm.bind(this);
         taskButton.onclick = this.displayTaskForm.bind(this);
+
+        this.updateProjects(projectListDiv);
     }
 
     displayProjectForm() {
@@ -126,6 +128,8 @@ class DOMController {
 
         formDiv.className = 'task-form';
 
+        this.setProjectOptions(projectSelect);
+
         cancelButton.addEventListener('click', () => {formDiv.remove()})
         doneButton.addEventListener('click', () => {
             formDiv.remove();
@@ -149,10 +153,14 @@ class DOMController {
         projectItemDiv.className = 'project-item';
         projectItemDiv.textContent = project;
 
+        projectItemDiv.addEventListener('click', (e) => {
+            this.organizeTasks(e.target.textContent);
+        })
+
         projectListDiv.prepend(projectItemDiv);
     }
 
-    addTaskItem(title, description, dueDate, project, priority) {
+    addTaskItem(title, description, dueDate, project, priority, check = null) {
         const taskListDiv = document.querySelector('.task-list');
         const taskItemDiv = document.createElement('div');
         const titleP = document.createElement('p');
@@ -187,6 +195,10 @@ class DOMController {
         editSvg.src = pencilImage;
         editSvg.alt = 'pencil';
 
+        editSvg.addEventListener('click', () => {
+            this.editTask(taskItemDiv);
+        })
+
         taskItemDiv.appendChild(titleP);
         taskItemDiv.appendChild(descriptionP);
         taskItemDiv.appendChild(dueDateP);
@@ -196,6 +208,72 @@ class DOMController {
         taskItemDiv.appendChild(editSvg);
 
         taskListDiv.prepend(taskItemDiv);
+
+        if (check != null) {
+            if (check == true) {
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
+            }
+        }
+    }
+
+    setProjectOptions(select) {
+        let i = 0;
+
+        for (let project in projectLibrary) {
+            const option = document.createElement('option');
+
+            option.value = projectLibrary[i].toLowerCase();
+            option.textContent = projectLibrary[i];
+
+            select.appendChild(option);
+
+            i++;
+        }
+    }
+
+    updateProjects(listDiv) {
+        let i = 0;
+
+        for (let project of projectLibrary) {
+            this.addProjectItem(projectLibrary[i])
+
+            i++;
+        }
+    }
+
+    updateTasks(taskDiv) {
+        let i = 0;
+
+        for (let task in taskLibrary) {
+            this.addTaskItem(taskLibrary[i].title, taskLibrary[i].description, taskLibrary[i].dueDate, taskLibrary[i].project, taskLibrary[i].priority, taskLibrary[i].check);
+
+            i++;
+        }
+    }
+
+    editTask(taskItem) {
+        alert('to do');
+    }
+
+    organizeTasks(projectText) {
+        const taskList = document.querySelector('.task-list');
+        let i = 0;
+
+        console.log(projectText)
+
+        taskList.innerHTML = '';
+
+        for (let task in taskLibrary) {
+            console.log(taskLibrary[i].projectSelected)
+            console.log(projectText)
+            if (taskLibrary[i].projectSelected == projectText) {
+                this.addTaskItem(taskLibrary[i].title, taskLibrary[i].description, taskLibrary[i].dueDate, taskLibrary[i].project, taskLibrary[i].priority, taskLibrary[i].check);
+            }
+
+            i++;
+        }
     }
 }
 

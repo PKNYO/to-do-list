@@ -142,7 +142,6 @@ class DOMController {
                 'prioritySelected' : prioritySelect.value,
                 'check' : false
             });
-            console.log(taskLibrary)
         })
     }
 
@@ -222,6 +221,10 @@ class DOMController {
         let i = 0;
 
         for (let project in projectLibrary) {
+            if (projectLibrary[i].toLowerCase() == 'général') {
+                i++
+                continue
+            }
             const option = document.createElement('option');
 
             option.value = projectLibrary[i].toLowerCase();
@@ -247,7 +250,7 @@ class DOMController {
         let i = 0;
 
         for (let task in taskLibrary) {
-            this.addTaskItem(taskLibrary[i].title, taskLibrary[i].description, taskLibrary[i].dueDate, taskLibrary[i].project, taskLibrary[i].priority, taskLibrary[i].check);
+            this.addTaskItem(taskLibrary[i].title, taskLibrary[i].description, taskLibrary[i].dueDateInput, taskLibrary[i].projectSelected, taskLibrary[i].prioritySelected, taskLibrary[i].check);
 
             i++;
         }
@@ -261,15 +264,22 @@ class DOMController {
         const taskList = document.querySelector('.task-list');
         let i = 0;
 
-        console.log(projectText)
+        if (projectText == 'Général') {
+            taskList.innerHTML = '';
+            for (let task in taskLibrary) {
+                console.log(taskLibrary[i])
+                this.addTaskItem(taskLibrary[i].title, taskLibrary[i].description, taskLibrary[i].dueDateInput, taskLibrary[i].projectSelected, taskLibrary[i].prioritySelected, taskLibrary[i].check);
+    
+                i++;
+            }
+            return
+        }
 
         taskList.innerHTML = '';
 
         for (let task in taskLibrary) {
-            console.log(taskLibrary[i].projectSelected)
-            console.log(projectText)
-            if (taskLibrary[i].projectSelected == projectText) {
-                this.addTaskItem(taskLibrary[i].title, taskLibrary[i].description, taskLibrary[i].dueDate, taskLibrary[i].project, taskLibrary[i].priority, taskLibrary[i].check);
+            if (taskLibrary[i].projectSelected == projectText.toLowerCase()) {
+                this.addTaskItem(taskLibrary[i].title, taskLibrary[i].description, taskLibrary[i].dueDateInput, taskLibrary[i].projectSelected, taskLibrary[i].prioritySelected, taskLibrary[i].check);
             }
 
             i++;
